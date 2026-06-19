@@ -11,3 +11,32 @@
 
   2. Alinhamento e fusão multimodal robustos: Existe uma disparidade inerente entre as modalidades (métricas e traces têm estrutura temporal precisa, enquanto logs possuem riqueza semância mas organização temporal imprecisa). Além disso, os dados reais sofrem com discrepâncias de qualidade devido a erros de transmisssão e ruídos, gerando corrupção nas representações quando funidas de maneira indiscriminada.
 
+## Os métodos utilizados
+
+- **Para métricas**: Mecanismos de atenção de correlação esparsa dinâmica no domínio da frequência (via rFFT) para capturar dependências multimodais complexas, e amostragem reparametrizada (Gumbel-Softmax) para enfatizar métricas relevantes, evitando falsas correlações.
+  
+  - A **rFFT (Real Fast Fourier Transform)** é uma técnica de transformação que pode converter uma sequência de tempo em uma representação no domínio da frequência. Isso é útil para capturar padrões e dependências que podem não ser evidentes no domínio do tempo, especialmente em dados de séries temporais como métricas, exemplo: CPU bate 100% a cada 5 minutos, o que pode indicar um padrão de uso.
+
+  - A **Atenção de Correlação Esparsa Dinâmica** faz o computador descobrir quais métricas têm a ver uma com a outra em determinado momento, e ignora as que não tem relação.
+
+  - Amostragem reparametrizada (**Gumbel-Softmax**) é um truque matemático que permite a "suavização" de uma escolha rígida, isto é, ao invés de o computador ter que escolher entre 0 e 1 para a determinação de uma afirmação, ele pode escolher um valor ENTRE 0 e 1, ex: 0,99; 0,80; 0,50, etc. Isso é útil para estabelecer um parâmetro preciso de relevância.
+
+- **Para Traces**: Convoluções temporais 1D para a captura de tendências recentes e Convoluções em Grafos para analise da estrutura de comunicações entre os nós (serviços) do grafo.
+
+  - Como dito acima, para traces são usados dois conceitos distintos, um para a visualização de espaço e outra para a visualização de tempo.
+
+  - As **Convoluções temporais 1D** conseguem passar "deslizando" por todo uma janela (intervalo) de uma série temporal, permitindo a percepção de padrões anômalos.
+
+  - Já as **Convoluções em grafos** são usadas para que o algoritmo aprenda padrões por meio da agregação de informações entre os nós vizinhos (no nosso contexto, isso é útil para analisar a dependência entre dois serviços diferentes).
+
+
+- **Para Logs**: Uso da ferramenta de parsing open-source **Drain3** para template de logs, permitindo o agrupamento das mensagens que estão em um mesmo modelo.
+
+  - **Exemplo** 
+    - Imagine que a aplicação começa a soltar logs de falha de login sem parar: `User 123 failed to login at 10:01`, `User 999 failed to login at 10:01`. 
+    
+    - Por meio de uma ferramenta de parsing como o Drain3, é possível definirmos um template para os logs, que nesse caso seria: `User <*> failed to login at xx:xx`
+    
+    - A partir disso, o parser começa a contar a ocorrência desse padrão na saída de logs, gerando uma nova métrica útil na análise da IA.
+
+  - É descrito no texto que o Drain3 faz o processamento apenas do padrão do log, e entrega para a IA apenas este padrão limpo e quantas vezes ele ocorreu (ao invés de mandar um log gigantesco cheio de informações que podem causar dispersão), isso permite que o modelo de linguagem entenda o real significado do evento.
