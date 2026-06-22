@@ -11,6 +11,8 @@
 
   2. Alinhamento e fusão multimodal robustos: Existe uma disparidade inerente entre as modalidades (métricas e traces têm estrutura temporal precisa, enquanto logs possuem riqueza semância mas organização temporal imprecisa). Além disso, os dados reais sofrem com discrepâncias de qualidade devido a erros de transmisssão e ruídos, gerando corrupção nas representações quando funidas de maneira indiscriminada.
 
+- Destaque para a abordagem Few-shot, que é a capacidade de um modelo aprender a partir de um número muito limitado de exemplos. Isso é especialmente relevante em cenários de detecção de anomalias, pois dados de anomalias são escassos (dado o fato de que esse não é um dado disponível publicamente em grande quantidade, e também porque anomalias são eventos raros por definição). O FuseGuard é projetado para ser eficaz mesmo com poucos exemplos de anomalias, o que o torna uma solução prática para ambientes de produção onde a coleta de dados de anomalias pode ser difícil.
+
 ## Os métodos utilizados
 
 - **Para métricas**: Mecanismos de atenção de correlação esparsa dinâmica no domínio da frequência (via rFFT) para capturar dependências multimodais complexas, e amostragem reparametrizada (Gumbel-Softmax) para enfatizar métricas relevantes, evitando falsas correlações.
@@ -40,3 +42,5 @@
     - A partir disso, o parser começa a contar a ocorrência desse padrão na saída de logs, gerando uma nova métrica útil na análise da IA.
 
   - É descrito no texto que o Drain3 faz o processamento apenas do padrão do log, e entrega para a IA apenas este padrão limpo e quantas vezes ele ocorreu (ao invés de mandar um log gigantesco cheio de informações que podem causar dispersão), isso permite que o modelo de linguagem entenda o real significado do evento.
+
+- O artigo também destaca a necessidade do **processamento intra-modal** (ou seja, o processamento de cada modalidade de forma independente) para que o modelo de linguagem consiga extrair informações da maneira mais precisa possível, e então as correlacione.
