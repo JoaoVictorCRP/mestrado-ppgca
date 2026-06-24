@@ -19,7 +19,7 @@
   
   - A **rFFT (Real Fast Fourier Transform)** é uma técnica de transformação que pode converter uma sequência de tempo em uma representação no domínio da frequência. Isso é útil para capturar padrões e dependências que podem não ser evidentes no domínio do tempo, especialmente em dados de séries temporais como métricas, exemplo: CPU bate 100% a cada 5 minutos, o que pode indicar um padrão de uso.
 
-  - A **Atenção de Correlação Esparsa Dinâmica** faz o computador descobrir quais métricas têm a ver uma com a outra em determinado momento, e ignora as que não tem relação.
+  - A **Atenção de Correlação Esparsa Dinâmica** faz o computador descobrir quais métricas têm a ver uma com a outra em determinado momento, e ignora as que não tem relação. Isto é feito por meio da **Distância de Mahalanobis**, que é uma medida de distância entre um ponto e uma distribuição. No contexto do artigo, ela é usada para determinar a relevância das métricas em relação umas às outras, permitindo que o modelo se concentre nas métricas mais importantes para a detecção de anomalias.
 
   - Amostragem reparametrizada (**Gumbel-Softmax**) é um truque matemático que permite a "suavização" de uma escolha rígida, isto é, ao invés de o computador ter que escolher entre 0 e 1 para a determinação de uma afirmação, ele pode escolher um valor ENTRE 0 e 1, ex: 0,99; 0,80; 0,50, etc. Isso é útil para estabelecer um parâmetro preciso de relevância.
 
