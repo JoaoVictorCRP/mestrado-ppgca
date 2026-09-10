@@ -25,3 +25,11 @@
 
 - No exemplo acima, o nó X não olha uma janela fixa, mas sim para os nós que estão conectados a ele, sejam 2 ou 20 vizinhos. Depois de somar/combinar essas mensagens, X passa a armazenar informações sobre seus vizinhos, a informação se propaga por saltos cada vez mais distantes no grafo, permitindo que a GCN aprenda representações mais ricas e contextuais.
 
+## Analogia direta
+
+| CNN | GCN |
+|-----|-----|
+| Vinhança = janela fixa (3x3, 5x5)   | Vizinhança = quem está conectado no grafo     |
+| Todo pixel tem a mesma quantidade de vizinhos     | Cada nó pode ter um número diferente de vizinhos    |
+| Peso do filtro é compartilhado pela imagem inteira  | Regra de agregação é compartilhada por todos os nós    |
+| Empilhar camadas amplia a região "vista" | Empilhar camadas amplia o alcance da rede (saltos no grafo) |
