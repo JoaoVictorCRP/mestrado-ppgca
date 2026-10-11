@@ -1,8 +1,12 @@
 # Uncertainty-Aware Multimodal Anomaly Detection for Microservice Systems with Active Learning
 
+## Introdução
+
 - O artigo começa expondo o estouro na popularidade de arquiteturas de microsserviços e a complexidade crescente na detecção de anomalias nesses sistemas.
 
 - Deixa claro que a dificuldade da depuração de problemas leva a perdas economicas para empresas e usuários.
+
+## Desafios das abordagens multimodais
 
 - Mostra que estudos recentes utilizam abordagens unimodais (isto é, só consideram logs OU métricas OU traces) para a tomada de decisão de uma anomalia, o que possui certa eficiência, porém extremamente limitada para capturar a complexidade das interações em sistemas de microsserviços.
 
@@ -25,6 +29,8 @@
     - **Escassez de dados de treinamento**: Amostras de dados de alta qualidade e rotuladas de maneira precisa melhoram significativamente a performance de detecção dos modelos, mas o precsso é caro e demorado, pois involve a análise manual de dados complexos e a tomada de uma decisão sobre cada amostra.
 
       - Consequentemente, um desafio chave na detecção de anomalias multimodal é fazer o balanceamento entre o custo da anotação e a performance do modelo, o que permitirá mantera a efetividade em cenários com escassez de dados rotulados.
+
+## O Framework MUAD
 
 - A partir destes desafios o trabalho propõe o MUAD, um framework de detecção de anomalias multimodal alerta para a incerteza, com aprendizado ativo. Consiste de 4 estágios:
   1. **Encoding de features unimodal**: Onde cada modalidade é codificada em uma representação determínistica.
