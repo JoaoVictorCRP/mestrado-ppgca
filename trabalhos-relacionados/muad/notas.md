@@ -33,10 +33,24 @@
 ## O Framework MUAD
 
 - A partir destes desafios o trabalho propõe o MUAD, um framework de detecção de anomalias multimodal alerta para a incerteza, com aprendizado ativo. Consiste de 4 estágios:
-  1. **Encoding de features unimodal**: Onde cada modalidade é codificada em uma representação determínistica.
+  1. **Encoding de atributos unimodal**: Onde cada modalidade é codificada em uma representação determínistica.
   
   2. **Modelagem de incerteza**: Que extrai robustas representações especificas de cada modalidade ao projetar vetores estocásticos latentes.
 
   3. **Fusão dinâmica de modalidades**: Onde um mecanismo de fusão baseado em confiança designa pesos diferentes para cada modalidade baseado em uma estimativa de confiança, e então combina as modalidades em uma representação global.
 
   4. **Treinamento ativo**: Que atualiza o modelo iterativamente utilizando dados pseudo-rotulados e amostras precisamente rotuladas.
+
+
+## Métodos
+- **Graph-Based Probabilistic Encoder**: Usado para extrair representação robusta de atributos dos complexos dados multimodais.
+
+- **Confidence-Aware Fusion Mechanism**: Usado para focar dinamicamente nas modalidades mais confiáveis e discriminadoras do estado do sistema.
+
+- **Active Learning Strategy**: Usado para atualizar o modelo iterativamente utilizando dados pseudo-rotulados e amostras precisamente rotuladas.
+
+
+## Motivações
+- **Motivação 1**: A necessidade de lidar com a incerteza em dados intra-modal para melhorar a robustez da detecão de anomalia.
+
+- **Motivação 2**: É necessário lidar com a incerteza inter-modal para garantir a confiabilidade da detecção de anomalia.
